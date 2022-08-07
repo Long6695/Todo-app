@@ -42,8 +42,11 @@ const useStore = create<Props>(set => ({
   fetchTodos: async () => {
     set({loading: true});
     const response = await httpRequest.get(`${API_ROOT_URL}${ENDPOINTS.TODOS}`);
-    const {data} = response;
-    set({todos: data, loading: false});
+    if (response.data.isSuccess) {
+      const {data} = response;
+      set({todos: data, loading: false});
+    }
+    
   },
   updateTodo: async (id: string, data: ToDoProp) => {
     const response = await httpRequest.post(`${API_ROOT_URL}${ENDPOINTS.UPDATE_TODOS}`, id, data);
