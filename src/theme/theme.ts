@@ -11,13 +11,6 @@ declare module '@mui/material/styles' {
   }
 }
 
-// background #cad2c5
-// background container #84a98c
-// button background #52796f
-// button hover #354f52
-// text color #2f3e46
-//
-
 export const theme = createTheme({
   components: {
     MuiCheckbox: {

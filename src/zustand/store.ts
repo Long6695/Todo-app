@@ -21,7 +21,6 @@ export interface ToDosProps {
 interface Props {
   todos: ToDosProps;
   loading: boolean;
-  percentCompleted: number;
   fetchTodos: () => Promise<void>;
   updateTodo: (id: string, data: ToDoProp) => Promise<void>;
   createTodo: (text: string) => Promise<void>;
@@ -40,7 +39,6 @@ const useStore = create<Props>(set => ({
     total: 0,
   },
   loading: false,
-  percentCompleted: 0,
   fetchTodos: async () => {
     set({loading: true});
     const response = await httpRequest.get(`${API_ROOT_URL}${ENDPOINTS.TODOS}`);
