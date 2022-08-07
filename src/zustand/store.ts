@@ -62,8 +62,7 @@ const useStore = create<Props>(set => ({
     }
   },
   deleteTodo: async (id: string) => {
-    set({loading: true});
-    const response = await httpRequest.delete(`${API_ROOT_URL}${ENDPOINTS.TODOS}`, id);
+    const response = await httpRequest.delete(`${API_ROOT_URL}${ENDPOINTS.DELETE_TODOS}`, id);
     if (response.data.isSuccess) {
       set(state => ({
         todos: {...state.todos, data: state.todos.data.filter(val => val._id !== id)},

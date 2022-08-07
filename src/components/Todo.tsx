@@ -6,12 +6,13 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import CheckIcon from '@mui/icons-material/Check';
 
 interface Props {
-  onUpdateTodo: (id: string, text: string, isCompleted: boolean) => Promise<void>
+  onUpdateTodo: (id: string, text: string, isCompleted: boolean) => Promise<void>;
+  onDeleteTodo: (id: string) => Promise<void>;
   isChecked: boolean;
   data: ToDoProp;
 }
 
-const Todo = ({isChecked, data, onUpdateTodo}: Props) => {
+const Todo = ({isChecked, data, onUpdateTodo, onDeleteTodo}: Props) => {
   const [editTodo, setEditTodo] = useState({
     text: data.text,
     isCompleted: isChecked,
@@ -36,6 +37,11 @@ const Todo = ({isChecked, data, onUpdateTodo}: Props) => {
   const handleEditTodo = () => {
     setIsEdit(true);
   };
+
+  const handleDeleteTodo = async (id: string) => {
+    await onDeleteTodo(id)
+  }
+
   return (
     <ListItem
       key={data._id}
@@ -45,7 +51,7 @@ const Todo = ({isChecked, data, onUpdateTodo}: Props) => {
             {isEdit ? <CheckIcon onClick={() => handleSaveTodo(data._id)} /> : <EditIcon onClick={handleEditTodo} />}
           </IconButton>
           <IconButton edge="end" aria-label="comments">
-            <DeleteIcon/>
+            <DeleteIcon onClick={() => handleDeleteTodo(data._id)}/>
           </IconButton>
         </>
       }

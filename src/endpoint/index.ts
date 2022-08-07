@@ -1,4 +1,5 @@
 export const ENDPOINTS = {
     TODOS: 'todos',
-    UPDATE_TODOS: 'todos/update'
+    UPDATE_TODOS: 'todos/update',
+    DELETE_TODOS: 'todos/delete',
 }

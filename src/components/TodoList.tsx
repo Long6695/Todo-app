@@ -8,11 +8,15 @@ interface Props {
 }
 
 const TodoList = ({todos}: Props) => {
-  const { updateTodo} = useStore();
+  const { updateTodo, deleteTodo} = useStore();
 
   const handleUpdateTodo = async (id: string, text: string, isCompleted: boolean) => {
     await updateTodo(id, {_id: id, text, isCompleted});
   };
+
+  const handleDeleteTodo = async (id: string) => {
+    await deleteTodo(id)
+  }
 
   return (
     <>
@@ -22,6 +26,7 @@ const TodoList = ({todos}: Props) => {
         return (
           <Todo
             onUpdateTodo={handleUpdateTodo}
+            onDeleteTodo={handleDeleteTodo}
             isChecked={isChecked}
             data={value}
           />
