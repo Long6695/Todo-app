@@ -1,5 +1,5 @@
 import React  from 'react';
-import useStore, {ToDoProp, ToDosProps} from '../zustand/store';
+import useStore, {ToDosProps} from '../zustand/store';
 
 import Todo from './Todo';
 
@@ -25,6 +25,7 @@ const TodoList = ({todos}: Props) => {
 
         return (
           <Todo
+            key={value._id}
             onUpdateTodo={handleUpdateTodo}
             onDeleteTodo={handleDeleteTodo}
             isChecked={isChecked}

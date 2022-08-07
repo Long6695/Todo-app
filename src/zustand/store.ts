@@ -21,6 +21,7 @@ export interface ToDosProps {
 interface Props {
   todos: ToDosProps;
   loading: boolean;
+  percentCompleted: number;
   fetchTodos: () => Promise<void>;
   updateTodo: (id: string, data: ToDoProp) => Promise<void>;
   createTodo: (text: string) => Promise<void>;
@@ -39,11 +40,15 @@ const useStore = create<Props>(set => ({
     total: 0,
   },
   loading: false,
+  percentCompleted: 0,
   fetchTodos: async () => {
     set({loading: true});
     const response = await httpRequest.get(`${API_ROOT_URL}${ENDPOINTS.TODOS}`);
-    const {data} = response;
-    set({todos: data, loading: false});
+    if (response.data.isSuccess) {
+      const {data} = response;
+      set({todos: data, loading: false});
+    }
+    
   },
   updateTodo: async (id: string, data: ToDoProp) => {
     const response = await httpRequest.post(`${API_ROOT_URL}${ENDPOINTS.UPDATE_TODOS}`, id, data);
