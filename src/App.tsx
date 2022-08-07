@@ -1,61 +1,44 @@
 import * as React from 'react';
-import {Container, Box, Typography, Button, TextField, List, CircularProgress, Alert, Snackbar} from '@mui/material';
+import {Container, Box, List, CircularProgress, CssBaseline} from '@mui/material';
 import useStore from './zustand/store';
 import TodoList from './components/TodoList';
+import Header from './components/Header';
+import { motion } from 'framer-motion';
 
 const App = () => {
-  const {todos, loading, fetchTodos, createTodo} = useStore();
-  const [todo, setTodo] = React.useState('');
+  const {todos, loading, fetchTodos} = useStore();
 
   React.useEffect(() => {
     fetchTodos();
   }, [fetchTodos]);
 
-  const handleAddToDo = () => {
-    createTodo(todo);
-    setTodo('');
-  };
-
-  const handleChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTodo(e.target.value);
-  };
-
   return (
-    <Container maxWidth="xl" sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 10}}>
-      <Box
-        bgcolor="backgroundContainer.main"
-        display="grid"
-        gridTemplateColumns="repeat(12, 1fr)"
-        borderRadius={4}
-        gap={2}
-        p={2}
-      >
-        <Box gridColumn="span 12">
-          <Typography variant="h4" color="color.main" textAlign="center">
-            Todo List
-          </Typography>
-        </Box>
-        <Box gridColumn="span 8">
-          <TextField variant="filled" label="Todo" value={todo} onChange={handleChangeText} />
-        </Box>
-        <Box gridColumn="span 4">
-          <Button sx={{height: '100%'}} variant="contained" onClick={handleAddToDo}>
-            Add
-          </Button>
-        </Box>
-        <Box gridColumn="span 12">
+    <motion.div animate={{ y: 12}} transition={{ease: "easeOut", duration: 4 }}>
+      <CssBaseline />
+      <Container maxWidth="sm">
+        <Header />
+        <Box
+          width="100%"
+          bgcolor="backgroundContainer.main"
+          boxShadow="rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;"
+          mt={5}
+          p={4}
+          borderRadius={4}
+        >
           <List>
             {loading ? (
+              
               <Box sx={{display: 'flex', alignItems: 'center', width: '100%', justifyContent: 'center'}}>
                 <CircularProgress />
               </Box>
+              // </motion.div>
             ) : (
               <TodoList todos={todos} />
             )}
           </List>
         </Box>
-      </Box>
-    </Container>
+      </Container>
+    </motion.div>
   );
 };
 
